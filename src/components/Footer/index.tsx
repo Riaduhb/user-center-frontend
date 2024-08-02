@@ -9,13 +9,13 @@ const Footer: React.FC = () => {
       links={[
         {
           key: 'planet',
-          title: '用户中心1',
+          title: '用户中心',
           href: 'https://www.yuque.com/dashboard/books',
           blankTarget: true,
         },
         {
           key: 'codeNav',
-          title: '管理平台11',
+          title: '管理平台',
           href: 'https://www.yuque.com/dashboard/books',
           blankTarget: true,
         },
