@@ -1,5 +1,6 @@
 import { GithubOutlined } from '@ant-design/icons';
 import { DefaultFooter } from '@ant-design/pro-components';
+import {PLANET_LINK} from "@/constants";
 const Footer: React.FC = () => {
   const defaultMessage = '玄色出品';
   const currentYear = new Date().getFullYear();
@@ -9,14 +10,14 @@ const Footer: React.FC = () => {
       links={[
         {
           key: 'planet',
-          title: '用户中心1',
-          href: 'https://www.yuque.com/dashboard/books',
+          title: '用户中心',
+          href: PLANET_LINK,
           blankTarget: true,
         },
         {
           key: 'codeNav',
-          title: '管理平台1',
-          href: 'https://www.yuque.com/dashboard/books',
+          title: '管理平台',
+          href: PLANET_LINK,
           blankTarget: true,
         },
         {
