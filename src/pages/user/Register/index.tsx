@@ -27,30 +27,20 @@ const LoginMessage: React.FC<{
     showIcon
   />
 );
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
-  const {initialState, setInitialState} = useModel('@@initialState');
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-    if (userInfo) {
-      await setInitialState((s) => ({
-        ...s,
-        currentUser: userInfo,
-      }));
-    }
-  };
+
   const handleSubmit = async (values: API.LoginParams) => {
     try {
-      // 登录
+      // 注册
       const user = await login({
         ...values,
         type,
       });
       if (user) {
-        const defaultLoginSuccessMessage = '登录成功！';
+        const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const {query} = history.location;
@@ -64,7 +54,7 @@ const Login: React.FC = () => {
       // 如果失败去设置用户错误信息
       setUserLoginState(user);
     } catch (error) {
-      const defaultLoginFailureMessage = '登录失败，请重试！';
+      const defaultLoginFailureMessage = '注册失败，请重试！';
       message.error(defaultLoginFailureMessage);
     }
   };
@@ -85,7 +75,7 @@ const Login: React.FC = () => {
           }}
         >
           <Tabs activeKey={type} onChange={setType}>
-            <Tabs.TabPane key="account" tab={'账号密码登录'}/>
+            <Tabs.TabPane key="account" tab={'账号密码注册'}/>
           </Tabs>
 
           {status === 'error' && loginType === 'account' && (
@@ -126,32 +116,31 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
+              <ProFormText.Password
+                name="checkPassword"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined className={styles.prefixIcon}/>,
+                }}
+                placeholder={'请再次输入密码'}
+                rules={[
+                  {
+                    required: true,
+                    message: '确认密码是必填项！',
+                  },
+                  {
+                    len: 8,
+                    type: 'string',
+                    message: '长度不能小于8',
+                  },
+                ]}
+              />
             </>
           )}
-
-          <div
-            style={{
-              marginBottom: 24,
-            }}
-          >
-            <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
-            </ProFormCheckbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-              href={PLANET_LINK}
-              target="_blank"
-              rel="noreferrer"
-            >
-              忘记密码请联系管理员 ?
-            </a>
-          </div>
         </LoginForm>
       </div>
       <Footer/>
     </div>
   );
 };
-export default Login;
+export default Register;
