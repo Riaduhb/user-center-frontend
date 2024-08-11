@@ -53,7 +53,6 @@ const Login: React.FC = () => {
         history.push(redirect || '/');
         return;
       }
-      console.log(user);
       // 如果失败去设置用户错误信息
       setUserLoginState(user);
     } catch (error) {
@@ -62,7 +61,7 @@ const Login: React.FC = () => {
     }
   };
 
-  const {status, type: loginType} = userLoginState;
+  const {status, type: loginType} = userLoginState || {status:'',type:''};
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -113,7 +112,7 @@ const Login: React.FC = () => {
                     message: '密码是必填项！',
                   },
                   {
-                    len: 8,
+                    min: 8,
                     type: 'string',
                     message: '长度不能小于8',
                   },
